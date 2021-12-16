@@ -20,4 +20,4 @@
 /Godeps/
 
 ## creds and env
-*.env
+cmd/*.env
