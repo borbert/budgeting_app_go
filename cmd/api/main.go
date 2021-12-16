@@ -41,7 +41,7 @@ type application struct {
 }
 
 func geEnvVars() {
-	err := godotenv.Load("cmd/creds.env")
+	err := godotenv.Load("creds.env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
