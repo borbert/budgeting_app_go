@@ -21,3 +21,6 @@
 
 ## creds and env
 *.env
+
+## pg dumps
+*.sql
