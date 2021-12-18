@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"database/sql"
-	"flag"
 	"fmt"
 	"log"
 	"net/http"
@@ -49,14 +48,16 @@ func geEnvVars() {
 
 func main() {
 	var cfg config
-	geEnvVars()
+	// geEnvVars()
 
-	flag.StringVar(&cfg.port, "port", os.Getenv("PORT"), "Server port to listen on")
-	flag.StringVar(&cfg.env, "env", "development", "Application environment (development|production)")
-	flag.StringVar(&cfg.db.dsn, "dsn", os.Getenv("DATABASE_URL"), "Postgres connection string")
+	// flag.IntVar(&cfg.port, "port", 4000, "Server port to listen on")
+	// flag.StringVar(&cfg.env, "env", "development", "Application environment (development|production)")
+	// flag.StringVar(&cfg.db.dsn, "dsn", os.Getenv("DATABASE_URL"), "Postgres connection string")
 
-	flag.Parse()
-
+	// flag.Parse()
+	const DEFAULT_PORT = 4000
+	cfg.port = os.Getenv("PORT")
+	cfg.env = os.Getenv("env")
 	cfg.jwt.secret = os.Getenv("BUDGET_JWT")
 
 	logger := log.New(os.Stdout, "", log.Ldate|log.Ltime)
