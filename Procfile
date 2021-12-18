@@ -1,1 +1,1 @@
-web: ./cmd/api
+web: api
