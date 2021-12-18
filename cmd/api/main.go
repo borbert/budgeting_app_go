@@ -59,6 +59,7 @@ func main() {
 	cfg.port = os.Getenv("PORT")
 	cfg.env = os.Getenv("env")
 	cfg.jwt.secret = os.Getenv("BUDGET_JWT")
+	cfg.db.dsn = os.Getenv("DATABASE_URL")
 
 	logger := log.New(os.Stdout, "", log.Ldate|log.Ltime)
 
