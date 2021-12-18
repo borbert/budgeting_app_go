@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/borbert/budgeting_app_go/models"
@@ -17,7 +18,7 @@ import (
 const version = "1.0.0"
 
 type config struct {
-	port string
+	port int
 	env  string
 	db   struct {
 		dsn string
@@ -55,12 +56,10 @@ func main() {
 	// flag.StringVar(&cfg.db.dsn, "dsn", os.Getenv("DATABASE_URL"), "Postgres connection string")
 
 	// flag.Parse()
-	cfg.port = os.Getenv("PORT")
+	cfg.port, _ = strconv.Atoi(os.Getenv("PORT"))
 	cfg.env = os.Getenv("env")
 	cfg.jwt.secret = os.Getenv("BUDGET_JWT")
 	cfg.db.dsn = os.Getenv("DATABASE_URL")
-
-	fmt.Println(cfg)
 
 	logger := log.New(os.Stdout, "", log.Ldate|log.Ltime)
 
@@ -85,7 +84,6 @@ func main() {
 	}
 
 	logger.Println("Starting server on port", cfg.port)
-	fmt.Println("Starting server on port", cfg.port)
 
 	err = srv.ListenAndServe()
 
