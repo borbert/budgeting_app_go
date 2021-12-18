@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/borbert/budgeting_app_golang/models"
+	"github.com/borbert/budgeting_app_go/models"
 	"github.com/julienschmidt/httprouter"
 )
 
