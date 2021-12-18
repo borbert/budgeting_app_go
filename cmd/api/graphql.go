@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/borbert/budgeting_app_golang/models"
+	"github.com/borbert/budgeting_app_go/models"
 	"github.com/graphql-go/graphql"
 )
 

@@ -1,4 +1,4 @@
-module github.com/borbert/budgeting_app_golang
+module github.com/borbert/budgeting_app_go
 
 // +heroku goVersion go1.17
 go 1.17

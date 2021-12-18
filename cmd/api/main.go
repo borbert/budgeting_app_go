@@ -10,7 +10,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/borbert/budgeting_app_golang/models"
+	"github.com/borbert/budgeting_app_go/models"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )

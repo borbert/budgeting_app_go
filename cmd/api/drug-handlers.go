@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/borbert/budgeting_app_golang/models"
+	"github.com/borbert/budgeting_app_go/models"
 )
 
 func getOpenFDA(drug models.Drug) models.Drug {
