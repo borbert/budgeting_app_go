@@ -85,6 +85,7 @@ func main() {
 	}
 
 	logger.Println("Starting server on port", cfg.port)
+	fmt.Println("Starting server on port", cfg.port)
 
 	err = srv.ListenAndServe()
 
