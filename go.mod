@@ -1,6 +1,7 @@
 module github.com/borbert/budgeting_app_golang
 
-go 1.15
+// +heroku goVersion go1.17
+go 1.17
 
 require (
 	github.com/graphql-go/graphql v0.8.0
