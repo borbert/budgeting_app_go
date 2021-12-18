@@ -55,11 +55,12 @@ func main() {
 	// flag.StringVar(&cfg.db.dsn, "dsn", os.Getenv("DATABASE_URL"), "Postgres connection string")
 
 	// flag.Parse()
-	const DEFAULT_PORT = 4000
 	cfg.port = os.Getenv("PORT")
 	cfg.env = os.Getenv("env")
 	cfg.jwt.secret = os.Getenv("BUDGET_JWT")
 	cfg.db.dsn = os.Getenv("DATABASE_URL")
+
+	fmt.Println(cfg)
 
 	logger := log.New(os.Stdout, "", log.Ldate|log.Ltime)
 
