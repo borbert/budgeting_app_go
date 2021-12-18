@@ -18,7 +18,7 @@ import (
 const version = "1.0.0"
 
 type config struct {
-	port int
+	port string
 	env  string
 	db   struct {
 		dsn string
@@ -51,7 +51,7 @@ func main() {
 	var cfg config
 	geEnvVars()
 
-	flag.IntVar(&cfg.port, "port", 4000, "Server port to listen on")
+	flag.StringVar(&cfg.port, "port", os.Getenv("PORT"), "Server port to listen on")
 	flag.StringVar(&cfg.env, "env", "development", "Application environment (development|production)")
 	flag.StringVar(&cfg.db.dsn, "dsn", os.Getenv("DATABASE_URL"), "Postgres connection string")
 
