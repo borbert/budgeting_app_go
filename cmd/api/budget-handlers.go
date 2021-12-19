@@ -198,6 +198,7 @@ func (app *application) getAllUsers(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
 func (app *application) getOneUser(w http.ResponseWriter, r *http.Request) {
 	params := httprouter.ParamsFromContext(r.Context())
 
@@ -215,6 +216,81 @@ func (app *application) getOneUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	err = app.writeJSON(w, http.StatusOK, user, "user")
+	if err != nil {
+		app.errorJSON(w, err)
+		return
+	}
+}
+
+type UserPayload struct {
+	ID       int    `json:"user_id"`
+	Email    string `json:"email"`
+	Password string `json"-"`
+}
+
+func (app *application) editUser(w http.ResponseWriter, r *http.Request) {
+	var payload UserPayload
+
+	err := json.NewDecoder(r.Body).Decode(&payload)
+	if err != nil {
+		log.Println(err)
+		app.errorJSON(w, err)
+		return
+	}
+
+	var user models.User
+
+	if payload.ID != 0 {
+		id := payload.ID
+		m, _ := app.models.DB.GetOneUser(string(id))
+		user = *m
+	}
+
+	user.ID = payload.ID
+	user.Email = payload.Email
+	user.Password = payload.Password
+
+	if user.ID == 0 {
+		err = app.models.DB.InsertUser(user)
+		if err != nil {
+			app.errorJSON(w, err)
+			return
+		}
+	} else {
+		err = app.models.DB.UpdateUser(user)
+		if err != nil {
+			app.errorJSON(w, err)
+			return
+		}
+	}
+
+	ok := jsonResp{
+		OK: true,
+	}
+	err = app.writeJSON(w, http.StatusOK, ok, "response")
+	if err != nil {
+		app.errorJSON(w, err)
+		return
+	}
+
+}
+func (app *application) deleteUser(w http.ResponseWriter, r *http.Request) {
+	params := httprouter.ParamsFromContext(r.Context())
+
+	id, err := strconv.Atoi(params.ByName("id"))
+	if err != nil {
+		app.errorJSON(w, err)
+		return
+	}
+	err = app.models.DB.DeleteUser(id)
+	if err != nil {
+		app.errorJSON(w, err)
+		return
+	}
+	ok := jsonResp{
+		OK: true,
+	}
+	err = app.writeJSON(w, http.StatusOK, ok, "response")
 	if err != nil {
 		app.errorJSON(w, err)
 		return

@@ -309,3 +309,61 @@ func (m *DBModel) GetOneUser(email string) (*User, error) {
 
 	return &u, nil
 }
+
+func (m *DBModel) InsertUser(user User) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	stmt := `insert into users 
+	(id, email, password) 
+	values ($1,$2,$3)
+	`
+
+	_, err := m.DB.ExecContext(ctx, stmt,
+		user.ID,
+		user.Email,
+		user.Password,
+	)
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	return nil
+}
+
+func (m *DBModel) UpdateUser(user User) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	stmt := `update users set
+				id=$1, 
+				email=$2, 
+				password=$3, 
+			where id=$1 
+			`
+
+	_, err := m.DB.ExecContext(ctx, stmt,
+		user.ID,
+		user.Email,
+		user.Password,
+	)
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	return nil
+}
+
+func (m *DBModel) DeleteUser(id int) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	stmt := "delete from users where id=$1"
+
+	_, err := m.DB.ExecContext(ctx, stmt, id)
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	return nil
+}

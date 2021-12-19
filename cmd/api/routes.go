@@ -32,13 +32,18 @@ func (app *application) routes() http.Handler {
 	router.HandlerFunc(http.MethodGet, "/v1/budgetitems/:tag", app.getAllBudgetItemsbyTag)
 
 	// router.HandlerFunc(http.MethodPost, "/v1/editbudgetitem", app.editBudgetItem)
+	// edits and creates new if ID is null
 	router.POST("/v1/editbudgetitem", app.wrap(secure.ThenFunc(app.editBudgetItem)))
+	// edits and creates new if ID is null
+	router.POST("/v1/edituser", app.wrap(secure.ThenFunc(app.editUser)))
 
 	// router.HandlerFunc(http.MethodGet, "/v1/users", app.getAllUsers)
 	router.POST("/v1/users", app.wrap(secure.ThenFunc(app.getAllUsers)))
 
 	// router.HandlerFunc(http.MethodGet, "/v1/deletebudgetitem/:id", app.deleteBudgetItem)
 	router.POST("/v1/deletebudgetitem/:id", app.wrap(secure.ThenFunc(app.deleteBudgetItem)))
+
+	router.POST("/v1/deleteuser/:id", app.wrap(secure.ThenFunc(app.deleteUser)))
 
 	return app.enableCORS(router)
 }
