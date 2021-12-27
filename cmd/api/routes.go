@@ -31,6 +31,8 @@ func (app *application) routes() http.Handler {
 
 	router.HandlerFunc(http.MethodGet, "/v1/budgetitems/:tag", app.getAllBudgetItemsbyTag)
 
+	// Protected routes
+
 	// router.HandlerFunc(http.MethodPost, "/v1/editbudgetitem", app.editBudgetItem)
 	// edits and creates new if ID is null
 	router.POST("/v1/editbudgetitem", app.wrap(secure.ThenFunc(app.editBudgetItem)))

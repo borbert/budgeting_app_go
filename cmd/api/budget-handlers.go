@@ -229,6 +229,7 @@ type UserPayload struct {
 }
 
 func (app *application) editUser(w http.ResponseWriter, r *http.Request) {
+
 	var payload UserPayload
 
 	err := json.NewDecoder(r.Body).Decode(&payload)
