@@ -297,23 +297,24 @@ func (app *application) deleteUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
 func (app *application) getUserPreferences(w http.ResponseWriter, r *http.Request) {
 	params := httprouter.ParamsFromContext(r.Context())
 
 	id, err := strconv.Atoi(params.ByName("user_id"))
 	if err != nil {
+		app.logger.Println(errors.New("invalid user_id parameter"))
 		app.errorJSON(w, err)
 		return
 	}
-	err = app.models.DB.GetUserPref(id)
+
+	user_pref, err := app.models.DB.GetUserPref(id)
+
 	if err != nil {
-		app.errorJSON(w, err)
-		return
+		app.logger.Println(err)
 	}
-	ok := jsonResp{
-		OK: true,
-	}
-	err = app.writeJSON(w, http.StatusOK, ok, "response")
+
+	err = app.writeJSON(w, http.StatusOK, user_pref, "user_preferences")
 	if err != nil {
 		app.errorJSON(w, err)
 		return
