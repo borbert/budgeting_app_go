@@ -368,16 +368,27 @@ func (m *DBModel) DeleteUser(id int) error {
 	return nil
 }
 
-func (m *DBModel) GetUserPref(id int) error {
+func (m *DBModel) GetUserPref(id int) (*UserPreferences, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
-	stmt := "select * from user_preferences where id=$1"
+	query := `select *
+	from user_preferences u
+	where u.id = $1`
 
-	_, err := m.DB.ExecContext(ctx, stmt, id)
+	row := m.DB.QueryRowContext(ctx, query, id)
+
+	var u UserPreferences
+
+	err := row.Scan(
+		&u.ID,
+		&u.User_id,
+		&u.Preference,
+	)
+
 	if err != nil {
-		log.Println(err)
-		return err
+		return nil, err
 	}
-	return nil
+
+	return &u, nil
 }
