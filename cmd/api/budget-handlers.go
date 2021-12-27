@@ -243,7 +243,7 @@ func (app *application) editUser(w http.ResponseWriter, r *http.Request) {
 
 	if payload.ID != 0 {
 		id := payload.ID
-		m, _ := app.models.DB.GetOneUser(string(id))
+		m, _ := app.models.DB.GetOneUser(strconv.Itoa(id))
 		user = *m
 	}
 
@@ -284,6 +284,28 @@ func (app *application) deleteUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	err = app.models.DB.DeleteUser(id)
+	if err != nil {
+		app.errorJSON(w, err)
+		return
+	}
+	ok := jsonResp{
+		OK: true,
+	}
+	err = app.writeJSON(w, http.StatusOK, ok, "response")
+	if err != nil {
+		app.errorJSON(w, err)
+		return
+	}
+}
+func (app *application) getUserPreferences(w http.ResponseWriter, r *http.Request) {
+	params := httprouter.ParamsFromContext(r.Context())
+
+	id, err := strconv.Atoi(params.ByName("user_id"))
+	if err != nil {
+		app.errorJSON(w, err)
+		return
+	}
+	err = app.models.DB.GetUserPref(id)
 	if err != nil {
 		app.errorJSON(w, err)
 		return

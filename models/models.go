@@ -56,6 +56,12 @@ type User struct {
 	Password string `json:"-"`
 }
 
+type UserPreferences struct {
+	ID         int    `json:"-"`
+	User_id    string `json:"user_id"`
+	Preference []int  `json:"preferences"`
+}
+
 type Drug struct {
 	Ndc11       string `json:"ndc11"`
 	Ndc10       string `json:"ndc10"`
