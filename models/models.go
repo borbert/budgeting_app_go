@@ -57,9 +57,9 @@ type User struct {
 }
 
 type UserPreferences struct {
-	ID         int    `json:"-"`
-	User_id    string `json:"user_id"`
-	Preference []int  `json:"preferences"`
+	ID                      int    `json:"-"`
+	User_id                 string `json:"user_id"`
+	Budget_items_sort_order []int  `json:"preferences"`
 }
 
 type Drug struct {
