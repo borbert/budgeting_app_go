@@ -373,8 +373,8 @@ func (m *DBModel) GetUserPref(user_id int) (*UserPreferences, error) {
 	defer cancel()
 
 	query := `select *
-	from user_preferences u
-	where u.user_id = $1`
+	from user_preferences 
+	where user_id = $1`
 
 	row := m.DB.QueryRowContext(ctx, query, user_id)
 

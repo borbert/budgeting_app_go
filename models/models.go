@@ -59,7 +59,7 @@ type User struct {
 type UserPreferences struct {
 	ID                      int    `json:"-"`
 	User_id                 string `json:"user_id"`
-	Budget_items_sort_order []int  `json:"preferences"`
+	Budget_items_sort_order []int  `json:"budget_items_sort_order"`
 }
 
 type Drug struct {
