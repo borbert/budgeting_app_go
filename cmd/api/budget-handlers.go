@@ -301,7 +301,7 @@ func (app *application) deleteUser(w http.ResponseWriter, r *http.Request) {
 func (app *application) getUserPreferences(w http.ResponseWriter, r *http.Request) {
 	params := httprouter.ParamsFromContext(r.Context())
 
-	id, err := strconv.Atoi(params.ByName("user_id"))
+	id, err := strconv.Atoi(params.ByName("id"))
 	if err != nil {
 		app.logger.Println(errors.New("invalid user_id parameter"))
 		app.errorJSON(w, err)
