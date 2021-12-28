@@ -368,7 +368,7 @@ func (m *DBModel) DeleteUser(id int) error {
 	return nil
 }
 
-func (m *DBModel) GetUserPref(id int) (*UserPreferences, error) {
+func (m *DBModel) GetUserPref(user_id int) (*UserPreferences, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
@@ -376,7 +376,7 @@ func (m *DBModel) GetUserPref(id int) (*UserPreferences, error) {
 	from user_preferences u
 	where u.user_id = $1`
 
-	row := m.DB.QueryRowContext(ctx, query, id)
+	row := m.DB.QueryRowContext(ctx, query, user_id)
 
 	var u UserPreferences
 
