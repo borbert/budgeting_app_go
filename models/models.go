@@ -51,13 +51,13 @@ type BudgetTag struct {
 }
 
 type User struct {
-	ID       int    `json:"-"`
+	ID       int    `json:"_"`
 	Email    string `json:"email"`
 	Password string `json:"-"`
 }
 
 type UserPreferences struct {
-	ID                      int    `json:"-"`
+	ID                      int    `json:"id"`
 	User_id                 string `json:"user_id"`
 	Budget_items_sort_order []int  `json:"budget_items_sort_order"`
 }
