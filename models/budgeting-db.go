@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"log"
 	"time"
+
+	"github.com/lib/pq"
 )
 
 type DBModel struct {
@@ -383,7 +385,7 @@ func (m *DBModel) GetUserPref(user_id int) (*UserPreferences, error) {
 	err := row.Scan(
 		&u.ID,
 		&u.User_id,
-		&u.Budget_items_sort_order,
+		pq.Array(&u.Budget_items_sort_order),
 	)
 
 	if err != nil {
