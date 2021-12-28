@@ -374,7 +374,7 @@ func (m *DBModel) GetUserPref(id int) (*UserPreferences, error) {
 
 	query := `select *
 	from user_preferences u
-	where u.id = $1`
+	where u.user_id = $1`
 
 	row := m.DB.QueryRowContext(ctx, query, id)
 
