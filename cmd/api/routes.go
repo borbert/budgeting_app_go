@@ -32,7 +32,7 @@ func (app *application) routes() http.Handler {
 	router.HandlerFunc(http.MethodGet, "/v1/budgetitems/:tag", app.getAllBudgetItemsbyTag)
 
 	//Get user preferences
-	router.HandlerFunc(http.MethodGet, "/v1/users/preferences/:user_id", app.getUserPreferences)
+	router.HandlerFunc(http.MethodGet, "/v1/userpreferences/:user_id", app.getUserPreferences)
 
 	// Protected routes
 
