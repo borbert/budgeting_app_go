@@ -301,14 +301,14 @@ func (app *application) deleteUser(w http.ResponseWriter, r *http.Request) {
 func (app *application) getUserPreferences(w http.ResponseWriter, r *http.Request) {
 	params := httprouter.ParamsFromContext(r.Context())
 
-	id, err := strconv.Atoi(params.ByName("user_id"))
+	user_id, err := strconv.Atoi(params.ByName("user_id"))
 	if err != nil {
 		app.logger.Println(errors.New("invalid user_id parameter"))
 		app.errorJSON(w, err)
 		return
 	}
 
-	user_pref, err := app.models.DB.GetUserPref(id)
+	user_pref, err := app.models.DB.GetUserPref(user_id)
 
 	if err != nil {
 		app.logger.Println(err)
